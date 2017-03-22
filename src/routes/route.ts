@@ -61,4 +61,9 @@ export class BaseRoute {
     //render view
     res.render(view, options);
   }
+
+  public renderJsonResponse(res:Response, status:number, body:any) {
+    res.json(status, body)
+  }
+  
 }
