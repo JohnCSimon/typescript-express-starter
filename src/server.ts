@@ -7,7 +7,7 @@ import errorHandler = require("errorhandler");
 import methodOverride = require("method-override");
 
 import { IndexRoute } from "./routes/index";
-import { TestRoute } from "./routes/testroute";
+import { VoteRoute } from "./routes/voteroute";
 
 /**
  * The server.
@@ -40,6 +40,7 @@ export class Server {
     //create expressjs application
     this.app = express();
 
+
     //configure application
     this.config();
 
@@ -66,7 +67,7 @@ export class Server {
    * @class Server
    * @method config
    */
-  public config() {
+  public async config() {
     //add static paths
     this.app.use(express.static(path.join(__dirname, "public")));
 
@@ -92,13 +93,28 @@ export class Server {
     this.app.use(methodOverride());
 
     // catch 404 and forward to error handler
-    this.app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
-        err.status = 404;
-        next(err);
+    this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+      err.status = 404;
+      next(err);
     });
 
     //error handling
     this.app.use(errorHandler());
+    //this.app.all('/uvtl/*', [require('./middlewares/validateRequest')]);
+
+    this.app.all('/*', (req, res, next) => {
+      // CORS headers
+      res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+      // Set custom headers for CORS
+      res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+      if (req.method == 'OPTIONS') {
+        res.status(200).end();
+      } else {
+        next();
+      }
+    });
+
   }
 
   /**
@@ -114,7 +130,7 @@ export class Server {
 
     //IndexRoute
     IndexRoute.create(router);
-    TestRoute.create(router);
+    VoteRoute.create(router);
 
     //use router middleware
     this.app.use(router);

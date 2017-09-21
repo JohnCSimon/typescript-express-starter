@@ -11,7 +11,6 @@ export class BaseRoute {
 
   private scripts: string[];
 
-
   /**
    * Constructor
    *
@@ -63,7 +62,7 @@ export class BaseRoute {
   }
 
   public renderJsonResponse(res:Response, status:number, body:any) {
-    res.json(status, body)
+    res.json(body)
   }
   
 }
