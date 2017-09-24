@@ -1,5 +1,12 @@
 import * as url from 'url';
 
+
+export type UpVote = {
+    votedUrl: url.Url;
+    upvotes: number;
+    downvotes: number;
+}
+
 export class UpVoteDTO {
     
     votedUrl: url.Url;

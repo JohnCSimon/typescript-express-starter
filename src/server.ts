@@ -94,6 +94,8 @@ export class Server {
 
     // catch 404 and forward to error handler
     this.app.use(function (err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+      req.baseUrl
+      res.app
       err.status = 404;
       next(err);
     });

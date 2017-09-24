@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 
 /**
  * Constructor
@@ -47,7 +47,11 @@ export class BaseRoute {
    * @param options {Object} Additional options to append to the view's local scope.
    * @return void
    */
-  public render(req: Request, res: Response, view: string, options?: Object) {
+  public render(req: Request, res: Response, view: string, options?: Object) : void {
+    if(req.statusCode != 200){
+      // error!
+    }
+
     //add constants
     res.locals.BASE_URL = "/";
 
@@ -62,6 +66,9 @@ export class BaseRoute {
   }
 
   public renderJsonResponse(res:Response, status:number, body:any) {
+    if(status !==200) {
+      // error!
+    }
     res.json(body)
   }
   

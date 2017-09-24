@@ -50,6 +50,10 @@ export class VoteRoute extends BaseRoute {
    * @next {NextFunction} Execute the next method.
    */
   public index(req: Request, res: Response, next: NextFunction) {
+    if (req.statusCode !== 200) {
+      next();
+    }
+
     //set custom title
     //set message
     let options: Object = {
@@ -70,6 +74,9 @@ export class VoteRoute extends BaseRoute {
    * @next {NextFunction} Execute the next method.
    */
   public doUpVote(req: Request, res: Response, next: NextFunction) {
+    if (req.statusCode !== 200) {
+      next();
+    }
     //set custom title
     //set message 
 
@@ -81,7 +88,7 @@ export class VoteRoute extends BaseRoute {
     }
     else {
 
-       options = {
+      options = {
         "message": "called with id " + req.params.id
       };
 
@@ -103,6 +110,10 @@ export class VoteRoute extends BaseRoute {
    * @next {NextFunction} Execute the next method.
    */
   public doDownVote(req: Request, res: Response, next: NextFunction) {
+    if (req.statusCode !== 200) {
+      next();
+    }
+
     //set custom title
     //set message
     let options: Object = {

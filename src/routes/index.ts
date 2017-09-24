@@ -46,6 +46,10 @@ export class IndexRoute extends BaseRoute {
    * @next {NextFunction} Execute the next method.
    */
   public index(req: Request, res: Response, next: NextFunction) {
+    if (req.statusCode != 200) {
+      next();
+    }
+
     //set custom title
     this.title = "Home | Tour of Heros";
 
